@@ -1,7 +1,7 @@
 ---
-- name: get ravello ips
+- name: verify environment prereqs
   hosts: localhost
-  gather_facts: true
+  gather_facts: false
   connection: local
 
   roles:
