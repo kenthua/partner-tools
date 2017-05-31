@@ -1,0 +1,8 @@
+---
+- name: get ravello ips
+  hosts: localhost
+  gather_facts: true
+  connection: local
+
+  roles:
+    - verify_prereq
