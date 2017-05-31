@@ -1,0 +1,4 @@
+---
+# vars file for verify_prereq
+java_version: 1.7
+mvn_version: 3.0

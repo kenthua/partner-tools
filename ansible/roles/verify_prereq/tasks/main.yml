@@ -1,0 +1,28 @@
+---
+# tasks file for verify_prereq
+- name: verify java is installed
+  shell: java -version 2>&1 | grep version | awk '{print $3}' | sed 's/"//g'
+  register: java_version_output
+  failed_when: java_version_output.stderr != ""
+
+- assert:
+    that:
+      - java_version_output.stdout | version_compare('{{ java_version }}', '>=') 
+
+- name: verify javac is installed
+  shell: javac -version 2>&1 | grep javac | awk '{print $2}' | sed 's/"//g'
+  register: javac_version_output
+  failed_when: javac_version_output.stderr != ""
+
+- assert:
+    that:
+      - javac_version_output.stdout | version_compare('{{ java_version }}', '>=') 
+  
+- name: verify mvn is installed
+  shell: mvn -version | grep "Apache Maven" |  awk '{print $3}' | sed 's/"//g'
+  register: mvn_version_output
+  failed_when: mvn_version_output.stderr != ""
+
+- assert:
+    that:
+      - mvn_version_output.stdout | version_compare('{{ mvn_version }}', '>=') 
