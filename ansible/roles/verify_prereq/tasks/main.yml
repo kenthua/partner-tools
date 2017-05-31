@@ -8,6 +8,7 @@
 - assert:
     that:
       - java_version_output.stdout | version_compare('{{ java_version }}', '>=') 
+    msg: java version needs to be greater than {{ java_version }}
 
 - name: verify javac is installed
   shell: javac -version 2>&1 | grep javac | awk '{print $2}' | sed 's/"//g'
@@ -17,6 +18,7 @@
 - assert:
     that:
       - javac_version_output.stdout | version_compare('{{ java_version }}', '>=') 
+    msg: javac version needs to be greater than {{ java_version }}
   
 - name: verify mvn is installed
   shell: mvn -version | grep "Apache Maven" |  awk '{print $3}' | sed 's/"//g'
@@ -26,3 +28,14 @@
 - assert:
     that:
       - mvn_version_output.stdout | version_compare('{{ mvn_version }}', '>=') 
+    msg: mvn version needs to be greater than {{ mvn_version }}
+
+- name: verify git is installed
+  shell: git version | grep "git" |  awk '{print $3}' | sed 's/"//g'
+  register: git_version_output
+  failed_when: git_version_output.stderr != ""
+
+- assert:
+    that:
+      - git_version_output.stdout | version_compare('{{ git_version }}', '>=')
+    msg: git version needs to be greater than {{ git_version }}
