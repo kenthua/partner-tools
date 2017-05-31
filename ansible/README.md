@@ -1,6 +1,7 @@
 # Ansible Playbooks
 
 ## prereqs
+Linux, macOS, Windows
 ansible
 
 ## verify.yml
